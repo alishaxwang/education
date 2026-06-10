@@ -1,570 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Ferris Wheel Trig Model</title>
+<meta charset="UTF-8">
+<title>Ferris Wheel Height Graph</title>
 <style>
-  :root {
-    --bg1: #eef4ff;
-    --bg2: #fff4e8;
-    --ink: #1f2937;
-    --muted: #64748b;
-    --blue: #2563eb;
-    --teal: #0891b2;
-    --purple: #7c3aed;
-    --green: #16a34a;
-    --orange: #f97316;
-    --red: #ef4444;
-    --card: rgba(255,255,255,0.88);
-  }
-
-  * { box-sizing: border-box; }
-
-  body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: "Segoe UI", Arial, sans-serif;
-    color: var(--ink);
-    background:
-      radial-gradient(circle at top left, #dbeafe 0, transparent 36%),
-      radial-gradient(circle at bottom right, #fed7aa 0, transparent 34%),
-      linear-gradient(135deg, var(--bg1), var(--bg2));
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 24px auto;
-    padding: 26px;
-  }
-
-  .hero {
-    background: var(--card);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.7);
-    border-radius: 24px;
-    padding: 24px 28px;
-    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
-    margin-bottom: 20px;
-  }
-
-  h1 {
-    margin: 0 0 8px;
-    font-size: 34px;
-    letter-spacing: -0.04em;
-  }
-
-  .subtitle {
-    font-size: 17px;
-    color: var(--muted);
-    line-height: 1.45;
-  }
-
-  .equation-pill {
-    display: inline-block;
-    margin-top: 14px;
-    padding: 10px 14px;
-    border-radius: 999px;
-    background: #eff6ff;
-    color: #1d4ed8;
-    font-weight: 700;
-    border: 1px solid #bfdbfe;
-  }
-
-  .stage {
-    display: grid;
-    grid-template-columns: 1fr 1.12fr;
-    gap: 20px;
-  }
-
-  .canvas-card {
-    background: rgba(255,255,255,0.9);
-    border-radius: 22px;
-    padding: 14px;
-    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.10);
-    border: 1px solid rgba(255,255,255,0.8);
-  }
-
-  canvas {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 16px;
-    background: white;
-  }
-
-  .bottom-row {
-    display: grid;
-    grid-template-columns: 170px 1fr;
-    gap: 16px;
-    align-items: stretch;
-    margin-top: 18px;
-  }
-
-  button {
-    border: none;
-    border-radius: 18px;
-    background: linear-gradient(135deg, #2563eb, #7c3aed);
-    color: white;
-    font-size: 17px;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 12px 24px rgba(37, 99, 235, 0.28);
-  }
-
-  button:hover { filter: brightness(1.04); }
-  button:active { transform: translateY(1px); }
-
-  .panel {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(150px, 1fr));
-    gap: 12px;
-  }
-
-  .card {
-    background: rgba(255,255,255,0.92);
-    border-radius: 18px;
-    padding: 15px;
-    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
-    border: 1px solid rgba(226,232,240,0.9);
-    font-size: 14.5px;
-    line-height: 1.35;
-  }
-
-  .card strong {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 16px;
-    margin-bottom: 7px;
-  }
-
-  .dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 999px;
-    display: inline-block;
-  }
-
-  .blue { background: var(--teal); }
-  .purple { background: var(--purple); }
-  .green { background: var(--green); }
-  .orange { background: var(--orange); }
-
-  @media (max-width: 900px) {
-    .stage, .bottom-row { grid-template-columns: 1fr; }
-    .panel { grid-template-columns: 1fr 1fr; }
-    button { padding: 14px; }
-  }
+*{box-sizing:border-box}
+body{margin:0;font-family:Segoe UI,Arial,sans-serif;color:#172033;background:linear-gradient(135deg,#eef4ff,#fff7ed)}
+.container{max-width:1220px;margin:20px auto;padding:20px}
+.hero,.card,.calc{background:rgba(255,255,255,.94);border-radius:22px;box-shadow:0 14px 34px rgba(15,23,42,.12)}
+.hero{padding:22px 26px;margin-bottom:18px}
+h1{margin:0 0 8px;font-size:32px}
+.subtitle{font-size:17px;color:#64748b;line-height:1.45}
+.main{display:grid;grid-template-columns:1fr 1.18fr;gap:18px}
+.card{padding:14px}
+canvas{display:block;width:100%;height:auto;border-radius:16px;background:#fff}
+.calc{margin-top:18px;padding:18px 20px}
+.calc h2{margin:0 0 12px;font-size:22px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.step{background:white;border:1px solid #e2e8f0;border-radius:16px;padding:14px;min-height:136px}
+.title{font-weight:800;margin-bottom:8px}
+.math{font-family:Georgia,serif;font-size:18px;line-height:1.45}
+.note{color:#64748b;font-size:14px;line-height:1.35;margin-top:8px}
+button{margin-top:14px;border:0;border-radius:14px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:white;padding:11px 16px;font-weight:800;font-size:15px;cursor:pointer}
+@media(max-width:950px){.main,.steps{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="container">
-  <section class="hero">
-    <h1>Ferris Wheel Trig Model</h1>
-    <div class="subtitle">
-      As the rider moves in a circle, their height follows a repeating wave. The orange cart and the black point on the graph show the same moment in time. Use the animation to connect the Ferris wheel to
-      <strong>amplitude</strong>, <strong>midline</strong>, and <strong>period</strong>.
-    </div>
-    <div class="equation-pill">h(t) = 30 + 20sin(2πt / 12)</div>
-  </section>
+<section class="hero">
+<h1>Ferris Wheel Height Graph</h1>
+<div class="subtitle">Use this for direct instruction: define maximum, minimum, midline, amplitude, and period using the color-coded Ferris wheel and graph. The orange cart and black graph point show the same moment in time.</div>
+<button onclick="toggleAnimation()">Pause / Play</button>
+</section>
 
-  <div class="stage">
-    <div class="canvas-card">
-      <canvas id="wheelCanvas" width="520" height="460"></canvas>
-    </div>
-    <div class="canvas-card">
-      <canvas id="graphCanvas" width="640" height="500"></canvas>
-    </div>
-  </div>
+<section class="main">
+<div class="card"><canvas id="wheel" width="520" height="460"></canvas></div>
+<div class="card"><canvas id="graph" width="670" height="500"></canvas></div>
+</section>
 
-  <div class="bottom-row">
-    <button onclick="toggleAnimation()">Pause / Play</button>
-
-    <div class="panel">
-      <div class="card">
-        <strong><span class="dot purple"></span>Amplitude</strong>
-        Distance from the midline to the highest or lowest point.
-      </div>
-      <div class="card">
-        <strong><span class="dot blue"></span>Midline</strong>
-        The center height of the ride, halfway between max and min.
-      </div>
-      <div class="card">
-        <strong><span class="dot green"></span>Period</strong>
-        The time for one complete rotation, or one full wave.
-      </div>
-      <div class="card">
-        <strong><span class="dot orange"></span>Context</strong>
-        The graph shows the rider’s height above the ground over time.
-      </div>
-    </div>
-  </div>
+<section class="calc">
+<h2>Exact Calculations From the Graph</h2>
+<div class="steps">
+<div class="step"><div class="title" style="color:#f97316">1. Maximum & Minimum</div><div class="math">Maximum = 50 ft<br>Minimum = 10 ft</div><div class="note">Read the highest and lowest points on the height graph.</div></div>
+<div class="step"><div class="title" style="color:#0891b2">2. Midline</div><div class="math">(50 + 10) / 2<br>= 60 / 2<br>= 30 ft</div><div class="note">The midline is halfway between maximum and minimum.</div></div>
+<div class="step"><div class="title" style="color:#7c3aed">3. Amplitude</div><div class="math">(50 - 10) / 2<br>= 40 / 2<br>= 20 ft</div><div class="note">Amplitude is the distance from the midline to the top or bottom.</div></div>
+<div class="step"><div class="title" style="color:#16a34a">4. Period & Model</div><div class="math">Period = 12 sec<br>h(t) = 30 + 20sin(2πt / 12)</div><div class="note">One full cycle is from t = 0 to t = 12 seconds.</div></div>
+</div>
+</section>
 </div>
 
 <script>
-const wheelCanvas = document.getElementById("wheelCanvas");
-const graphCanvas = document.getElementById("graphCanvas");
-const wctx = wheelCanvas.getContext("2d");
-const gctx = graphCanvas.getContext("2d");
+const wc=document.getElementById("wheel"),gc=document.getElementById("graph");
+const w=wc.getContext("2d"),g=gc.getContext("2d");
+let running=true,start=performance.now(),currentT=0;
+const WX=260,WY=232,r=145,maxH=50,minH=10,mid=(maxH+minH)/2,amp=(maxH-minH)/2,period=12;
 
-let running = true;
-let startTime = performance.now();
-let currentT = 0;
+function toggleAnimation(){running=!running;if(running){start=performance.now()-currentT*1000;requestAnimationFrame(draw)}}
+function hAt(t){return mid+amp*Math.sin(2*Math.PI*t/period)}
+function rr(ctx,x,y,w,h,r,fill,stroke){ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);if(fill)ctx.fill();if(stroke)ctx.stroke()}
+function label(ctx,text,x,y,color){ctx.font="bold 14px Segoe UI,Arial";ctx.fillStyle=color;ctx.fillText(text,x,y)}
 
-const centerX = 260;
-const centerY = 232;
-const radius = 145;
-
-const midline = 30;
-const amplitude = 20;
-const period = 12;
-
-function toggleAnimation() {
-  running = !running;
-  if (running) {
-    startTime = performance.now() - currentT * 1000;
-    requestAnimationFrame(draw);
-  }
+function drawWheel(t){
+w.clearRect(0,0,wc.width,wc.height);
+let sky=w.createLinearGradient(0,0,0,360);sky.addColorStop(0,"#eff6ff");sky.addColorStop(1,"#fff");w.fillStyle=sky;rr(w,0,0,wc.width,wc.height,16,true,false);
+w.fillStyle="#fde68a";w.beginPath();w.arc(435,62,34,0,Math.PI*2);w.fill();
+w.fillStyle="#111827";w.font="bold 22px Segoe UI,Arial";w.fillText("Ferris Wheel",190,34);
+w.fillStyle="#dcfce7";w.fillRect(0,375,wc.width,85);
+w.strokeStyle="#64748b";w.lineWidth=7;w.lineCap="round";w.beginPath();w.moveTo(WX,WY);w.lineTo(150,386);w.moveTo(WX,WY);w.lineTo(370,386);w.stroke();
+w.strokeStyle="#334155";w.lineWidth=6;w.beginPath();w.arc(WX,WY,r,0,Math.PI*2);w.stroke();
+w.strokeStyle="#94a3b8";w.lineWidth=2;
+for(let i=0;i<16;i++){let a=i*Math.PI/8;w.beginPath();w.moveTo(WX,WY);w.lineTo(WX+r*Math.cos(a),WY+r*Math.sin(a));w.stroke()}
+w.fillStyle="#334155";w.beginPath();w.arc(WX,WY,12,0,Math.PI*2);w.fill();
+let angle=-2*Math.PI*t/period,rx=WX+r*Math.cos(angle),ry=WY+r*Math.sin(angle);
+w.strokeStyle="#475569";w.lineWidth=2;w.beginPath();w.moveTo(rx,ry);w.lineTo(rx,ry+18);w.stroke();
+w.fillStyle="#fb923c";w.strokeStyle="#c2410c";w.lineWidth=2;rr(w,rx-18,ry+15,36,24,7,true,true);
+let maxY=WY-r,minY=WY+r;
+w.strokeStyle="#0891b2";w.lineWidth=3;w.setLineDash([9,6]);w.beginPath();w.moveTo(55,WY);w.lineTo(465,WY);w.stroke();w.setLineDash([]);label(w,"midline = 30 ft",65,WY-10,"#0891b2");
+w.strokeStyle="#7c3aed";w.lineWidth=4;w.beginPath();w.moveTo(470,WY);w.lineTo(470,maxY);w.stroke();label(w,"amplitude = 20 ft",330,112,"#7c3aed");
+w.fillStyle="#111827";w.font="14px Segoe UI,Arial";w.fillText("maximum = 50 ft",62,maxY-8);w.fillText("minimum = 10 ft",62,minY+22);
+w.font="bold 15px Segoe UI,Arial";w.fillText("current height ≈ "+hAt(t).toFixed(1)+" ft",172,426);
 }
 
-function roundedRect(ctx, x, y, w, h, r, fill, stroke) {
-  ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.lineTo(x + w - r, y);
-  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-  ctx.lineTo(x + w, y + h - r);
-  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-  ctx.lineTo(x + r, y + h);
-  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-  ctx.lineTo(x, y + r);
-  ctx.quadraticCurveTo(x, y, x + r, y);
-  if (fill) ctx.fill();
-  if (stroke) ctx.stroke();
+function drawGraph(t){
+g.clearRect(0,0,gc.width,gc.height);
+let bg=g.createLinearGradient(0,0,0,gc.height);bg.addColorStop(0,"#fff7ed");bg.addColorStop(1,"#fff");g.fillStyle=bg;rr(g,0,0,gc.width,gc.height,16,true,false);
+const left=76,right=615,top=58,bottom=350,width=right-left,height=bottom-top;
+const xs=time=>left+(time/period)*width, ys=h=>bottom-((h-0)/60)*height;
+g.fillStyle="#111827";g.font="bold 22px Segoe UI,Arial";g.fillText("Height Graph",255,34);
+g.font="13px Segoe UI,Arial";
+for(let h=0;h<=60;h+=10){let y=ys(h);g.strokeStyle=h===30?"#bae6fd":"#e5e7eb";g.lineWidth=h===30?2:1;g.beginPath();g.moveTo(left,y);g.lineTo(right,y);g.stroke();g.fillStyle="#64748b";g.fillText(h,42,y+4)}
+for(let s=0;s<=period;s+=3){let x=xs(s);g.strokeStyle="#f1f5f9";g.lineWidth=1;g.beginPath();g.moveTo(x,top);g.lineTo(x,bottom);g.stroke();g.fillStyle="#64748b";g.fillText(s,x-5,bottom+22)}
+g.strokeStyle="#334155";g.lineWidth=2.5;g.beginPath();g.moveTo(left,top);g.lineTo(left,bottom);g.lineTo(right,bottom);g.stroke();
+g.fillStyle="#475569";g.font="bold 13px Segoe UI,Arial";g.fillText("height (ft)",18,45);g.fillText("time (seconds)",275,390);
+g.strokeStyle="#fb923c";g.setLineDash([4,5]);g.lineWidth=2;g.beginPath();g.moveTo(left,ys(maxH));g.lineTo(right,ys(maxH));g.stroke();g.beginPath();g.moveTo(left,ys(minH));g.lineTo(right,ys(minH));g.stroke();g.setLineDash([]);
+label(g,"max = 50",right-80,ys(maxH)-8,"#f97316");label(g,"min = 10",right-80,ys(minH)+18,"#f97316");
+g.strokeStyle="#0891b2";g.setLineDash([9,6]);g.lineWidth=3;g.beginPath();g.moveTo(left,ys(mid));g.lineTo(right,ys(mid));g.stroke();g.setLineDash([]);label(g,"midline = 30",right-115,ys(mid)-10,"#0891b2");
+g.strokeStyle="rgba(239,68,68,.18)";g.lineWidth=10;g.beginPath();
+for(let i=0;i<=400;i++){let time=i/400*period,x=xs(time),y=ys(hAt(time));if(i===0)g.moveTo(x,y);else g.lineTo(x,y)}g.stroke();
+g.strokeStyle="#ef4444";g.lineWidth=4;g.beginPath();
+for(let i=0;i<=400;i++){let time=i/400*period,x=xs(time),y=ys(hAt(time));if(i===0)g.moveTo(x,y);else g.lineTo(x,y)}g.stroke();
+let tm=t%period,cxg=xs(tm),cyg=ys(hAt(tm));
+g.strokeStyle="#94a3b8";g.setLineDash([5,5]);g.lineWidth=2;g.beginPath();g.moveTo(cxg,cyg);g.lineTo(cxg,bottom);g.stroke();g.setLineDash([]);
+g.fillStyle="#111827";g.beginPath();g.arc(cxg,cyg,8,0,Math.PI*2);g.fill();g.strokeStyle="#fff";g.lineWidth=3;g.stroke();
+let ax=xs(3);g.strokeStyle="#7c3aed";g.lineWidth=4;g.beginPath();g.moveTo(ax,ys(mid));g.lineTo(ax,ys(maxH));g.stroke();label(g,"amplitude = 20",ax+12,ys(42),"#7c3aed");
+let py=425;g.strokeStyle="#16a34a";g.lineWidth=4;g.beginPath();g.moveTo(left,py);g.lineTo(right,py);g.stroke();
+g.fillStyle="#16a34a";g.font="bold 15px Segoe UI,Arial";g.fillText("period = 12 sec",80,py-10);
+g.fillStyle="#475569";g.font="14px Segoe UI,Arial";g.fillText("one complete cycle: from t = 0 to t = 12",205,py-10);
 }
 
-function drawLabel(ctx, text, x, y, color) {
-  ctx.font = "bold 14px Segoe UI, Arial";
-  ctx.fillStyle = color;
-  ctx.fillText(text, x, y);
-}
-
-function drawWheel(t) {
-  wctx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height);
-
-  // sky
-  const sky = wctx.createLinearGradient(0, 0, 0, 360);
-  sky.addColorStop(0, "#eff6ff");
-  sky.addColorStop(1, "#ffffff");
-  wctx.fillStyle = sky;
-  roundedRect(wctx, 0, 0, wheelCanvas.width, wheelCanvas.height, 16, true, false);
-
-  // sun
-  wctx.fillStyle = "#fde68a";
-  wctx.beginPath();
-  wctx.arc(435, 62, 34, 0, Math.PI * 2);
-  wctx.fill();
-
-  // title
-  wctx.fillStyle = "#111827";
-  wctx.font = "bold 22px Segoe UI, Arial";
-  wctx.fillText("Ferris Wheel", 190, 34);
-
-  // ground
-  wctx.fillStyle = "#dcfce7";
-  wctx.fillRect(0, 375, wheelCanvas.width, 85);
-  wctx.strokeStyle = "#86efac";
-  wctx.lineWidth = 2;
-  wctx.beginPath();
-  wctx.moveTo(25, 375);
-  wctx.lineTo(495, 375);
-  wctx.stroke();
-
-  // supports
-  wctx.strokeStyle = "#64748b";
-  wctx.lineWidth = 7;
-  wctx.lineCap = "round";
-  wctx.beginPath();
-  wctx.moveTo(centerX, centerY);
-  wctx.lineTo(150, 386);
-  wctx.moveTo(centerX, centerY);
-  wctx.lineTo(370, 386);
-  wctx.stroke();
-
-  // wheel ring
-  wctx.strokeStyle = "#334155";
-  wctx.lineWidth = 6;
-  wctx.beginPath();
-  wctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-  wctx.stroke();
-
-  // inner ring
-  wctx.strokeStyle = "#cbd5e1";
-  wctx.lineWidth = 3;
-  wctx.beginPath();
-  wctx.arc(centerX, centerY, radius - 22, 0, Math.PI * 2);
-  wctx.stroke();
-
-  // spokes
-  wctx.strokeStyle = "#94a3b8";
-  wctx.lineWidth = 2;
-  for (let i = 0; i < 16; i++) {
-    const a = i * Math.PI / 8;
-    wctx.beginPath();
-    wctx.moveTo(centerX, centerY);
-    wctx.lineTo(centerX + radius * Math.cos(a), centerY + radius * Math.sin(a));
-    wctx.stroke();
-  }
-
-  // hub
-  wctx.fillStyle = "#334155";
-  wctx.beginPath();
-  wctx.arc(centerX, centerY, 12, 0, Math.PI * 2);
-  wctx.fill();
-
-  // rider
-  const angle = -2 * Math.PI * t / period;
-  const riderX = centerX + radius * Math.cos(angle);
-  const riderY = centerY + radius * Math.sin(angle);
-
-  // cart connector
-  wctx.strokeStyle = "#475569";
-  wctx.lineWidth = 2;
-  wctx.beginPath();
-  wctx.moveTo(riderX, riderY);
-  wctx.lineTo(riderX, riderY + 18);
-  wctx.stroke();
-
-  // cart
-  wctx.fillStyle = "#fb923c";
-  wctx.strokeStyle = "#c2410c";
-  wctx.lineWidth = 2;
-  roundedRect(wctx, riderX - 18, riderY + 15, 36, 24, 7, true, true);
-  wctx.fillStyle = "#fff7ed";
-  roundedRect(wctx, riderX - 10, riderY + 20, 20, 10, 3, true, false);
-
-  // midline
-  wctx.strokeStyle = "#0891b2";
-  wctx.lineWidth = 3;
-  wctx.setLineDash([9, 6]);
-  wctx.beginPath();
-  wctx.moveTo(55, centerY);
-  wctx.lineTo(465, centerY);
-  wctx.stroke();
-  wctx.setLineDash([]);
-  drawLabel(wctx, "midline = 30 ft", 65, centerY - 10, "#0891b2");
-
-  // amplitude arrow
-  const maxY = centerY - radius;
-  const minY = centerY + radius;
-  wctx.strokeStyle = "#7c3aed";
-  wctx.lineWidth = 4;
-  wctx.beginPath();
-  wctx.moveTo(470, centerY);
-  wctx.lineTo(470, maxY);
-  wctx.stroke();
-
-  // arrowheads
-  wctx.fillStyle = "#7c3aed";
-  wctx.beginPath();
-  wctx.moveTo(470, maxY);
-  wctx.lineTo(462, maxY + 12);
-  wctx.lineTo(478, maxY + 12);
-  wctx.fill();
-  wctx.beginPath();
-  wctx.moveTo(470, centerY);
-  wctx.lineTo(462, centerY - 12);
-  wctx.lineTo(478, centerY - 12);
-  wctx.fill();
-
-  drawLabel(wctx, "amplitude = 20 ft", 330, 112, "#7c3aed");
-
-  // max/min labels
-  wctx.fillStyle = "#111827";
-  wctx.font = "14px Segoe UI, Arial";
-  wctx.fillText("maximum = 50 ft", 62, maxY - 8);
-  wctx.fillText("minimum = 10 ft", 62, minY + 22);
-
-  // current height label
-  const currentHeight = midline + amplitude * Math.sin(2 * Math.PI * t / period);
-  wctx.fillStyle = "#111827";
-  wctx.font = "bold 15px Segoe UI, Arial";
-  wctx.fillText("current height ≈ " + currentHeight.toFixed(1) + " ft", 172, 426);
-}
-
-function heightAt(t) {
-  return midline + amplitude * Math.sin(2 * Math.PI * t / period);
-}
-
-function drawGraph(t) {
-  gctx.clearRect(0, 0, graphCanvas.width, graphCanvas.height);
-
-  const grad = gctx.createLinearGradient(0, 0, 0, graphCanvas.height);
-  grad.addColorStop(0, "#fff7ed");
-  grad.addColorStop(1, "#ffffff");
-  gctx.fillStyle = grad;
-  roundedRect(gctx, 0, 0, graphCanvas.width, graphCanvas.height, 16, true, false);
-
-  const left = 72, right = 595, top = 58, bottom = 350;
-  const width = right - left;
-  const height = bottom - top;
-
-  function xScale(time) { return left + (time / period) * width; }
-  function yScale(h) { return bottom - ((h - 0) / 60) * height; }
-
-  // title
-  gctx.fillStyle = "#111827";
-  gctx.font = "bold 22px Segoe UI, Arial";
-  gctx.fillText("Rider Height Over Time", 195, 34);
-
-  // grid and y labels
-  gctx.font = "13px Segoe UI, Arial";
-  for (let h = 0; h <= 60; h += 10) {
-    let y = yScale(h);
-    gctx.strokeStyle = h === 30 ? "#bae6fd" : "#e5e7eb";
-    gctx.lineWidth = h === 30 ? 2 : 1;
-    gctx.beginPath();
-    gctx.moveTo(left, y);
-    gctx.lineTo(right, y);
-    gctx.stroke();
-    gctx.fillStyle = "#64748b";
-    gctx.fillText(h, 40, y + 4);
-  }
-
-  // x labels
-  for (let sec = 0; sec <= period; sec += 3) {
-    let x = xScale(sec);
-    gctx.strokeStyle = "#f1f5f9";
-    gctx.lineWidth = 1;
-    gctx.beginPath();
-    gctx.moveTo(x, top);
-    gctx.lineTo(x, bottom);
-    gctx.stroke();
-    gctx.fillStyle = "#64748b";
-    gctx.fillText(sec, x - 5, bottom + 22);
-  }
-
-  // axes
-  gctx.strokeStyle = "#334155";
-  gctx.lineWidth = 2.5;
-  gctx.beginPath();
-  gctx.moveTo(left, top);
-  gctx.lineTo(left, bottom);
-  gctx.lineTo(right, bottom);
-  gctx.stroke();
-
-  gctx.fillStyle = "#475569";
-  gctx.font = "bold 13px Segoe UI, Arial";
-  gctx.fillText("height (ft)", 16, 45);
-  gctx.fillText("time (seconds)", 265, 390);
-
-  // midline
-  gctx.strokeStyle = "#0891b2";
-  gctx.setLineDash([9, 6]);
-  gctx.lineWidth = 3;
-  gctx.beginPath();
-  gctx.moveTo(left, yScale(midline));
-  gctx.lineTo(right, yScale(midline));
-  gctx.stroke();
-  gctx.setLineDash([]);
-  drawLabel(gctx, "midline = 30 ft", right - 135, yScale(midline) - 10, "#0891b2");
-
-  // sine curve with glow
-  gctx.strokeStyle = "rgba(239, 68, 68, 0.18)";
-  gctx.lineWidth = 10;
-  gctx.beginPath();
-  for (let i = 0; i <= 400; i++) {
-    const time = (i / 400) * period;
-    const x = xScale(time);
-    const y = yScale(heightAt(time));
-    if (i === 0) gctx.moveTo(x, y);
-    else gctx.lineTo(x, y);
-  }
-  gctx.stroke();
-
-  gctx.strokeStyle = "#ef4444";
-  gctx.lineWidth = 4;
-  gctx.beginPath();
-  for (let i = 0; i <= 400; i++) {
-    const time = (i / 400) * period;
-    const x = xScale(time);
-    const y = yScale(heightAt(time));
-    if (i === 0) gctx.moveTo(x, y);
-    else gctx.lineTo(x, y);
-  }
-  gctx.stroke();
-
-  // current point
-  const timeMod = t % period;
-  const curX = xScale(timeMod);
-  const curY = yScale(heightAt(timeMod));
-  gctx.fillStyle = "#111827";
-  gctx.beginPath();
-  gctx.arc(curX, curY, 8, 0, Math.PI * 2);
-  gctx.fill();
-  gctx.strokeStyle = "white";
-  gctx.lineWidth = 3;
-  gctx.stroke();
-
-  // vertical time guide
-  gctx.strokeStyle = "#94a3b8";
-  gctx.setLineDash([5, 5]);
-  gctx.lineWidth = 2;
-  gctx.beginPath();
-  gctx.moveTo(curX, curY);
-  gctx.lineTo(curX, bottom);
-  gctx.stroke();
-  gctx.setLineDash([]);
-
-  // amplitude arrow
-  const ampX = xScale(3);
-  gctx.strokeStyle = "#7c3aed";
-  gctx.lineWidth = 4;
-  gctx.beginPath();
-  gctx.moveTo(ampX, yScale(midline));
-  gctx.lineTo(ampX, yScale(midline + amplitude));
-  gctx.stroke();
-  gctx.fillStyle = "#7c3aed";
-  gctx.beginPath();
-  gctx.moveTo(ampX, yScale(midline + amplitude));
-  gctx.lineTo(ampX - 8, yScale(midline + amplitude) + 12);
-  gctx.lineTo(ampX + 8, yScale(midline + amplitude) + 12);
-  gctx.fill();
-  gctx.beginPath();
-  gctx.moveTo(ampX, yScale(midline));
-  gctx.lineTo(ampX - 8, yScale(midline) - 12);
-  gctx.lineTo(ampX + 8, yScale(midline) - 12);
-  gctx.fill();
-  drawLabel(gctx, "amplitude", ampX + 12, yScale(42), "#7c3aed");
-
-  // Bottom information box
-  gctx.fillStyle = "rgba(255,255,255,0.92)";
-  gctx.strokeStyle = "#fed7aa";
-  gctx.lineWidth = 2;
-  roundedRect(gctx, 58, 410, 525, 64, 14, true, true);
-
-  // period explanation
-  gctx.fillStyle = "#16a34a";
-  gctx.font = "bold 15px Segoe UI, Arial";
-  gctx.fillText("Period = 12 seconds", 78, 435);
-
-  gctx.fillStyle = "#475569";
-  gctx.font = "14px Segoe UI, Arial";
-  gctx.fillText("One full rotation of the wheel matches one full wave on the graph.", 78, 456);
-
-  // formula
-  gctx.fillStyle = "#1d4ed8";
-  gctx.font = "bold 16px Segoe UI, Arial";
-  gctx.fillText("h(t) = 30 + 20sin(2πt / 12)", 315, 435);
-}
-
-function draw(timestamp) {
-  if (!running) return;
-  currentT = ((timestamp - startTime) / 1000) % period;
-  drawWheel(currentT);
-  drawGraph(currentT);
-  requestAnimationFrame(draw);
-}
-
+function draw(ts){if(!running)return;currentT=((ts-start)/1000)%period;drawWheel(currentT);drawGraph(currentT);requestAnimationFrame(draw)}
 requestAnimationFrame(draw);
 </script>
 </body>
