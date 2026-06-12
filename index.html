@@ -35,7 +35,7 @@ button.secondary{background:#334155}
 <section class="hero">
 <h1>Ferris Wheel Height Graph</h1>
 <div class="subtitle">
-Click through one vocabulary word at a time. The final step shows everything together.
+Click through one vocabulary word at a time. The rider starts at the lowest point, so the model uses negative cosine.
 </div>
 
 <button onclick="toggleAnimation()">Pause / Play</button>
@@ -90,8 +90,8 @@ Click through one vocabulary word at a time. The final step shows everything tog
 
 <div class="step">
 <div class="title" style="color:#dc2626">Model</div>
-<div class="math">h(t) = 30 + 20sin(2πt / 12)</div>
-<div class="note">Uses midline, amplitude, and period.</div>
+<div class="math">h(t) = 30 - 20cos(2πt / 12)</div>
+<div class="note">Uses negative cosine because the rider starts at the minimum height.</div>
 </div>
 </div>
 </section>
@@ -106,7 +106,7 @@ let running=true,start=performance.now(),currentT=0;
 let lessonStep=0;
 
 const stepTexts=[
-  "Watch the orange cart move. What do you notice about the graph?",
+  "Watch the orange cart start at the lowest point. What do you notice about the graph?",
   "Maximum: Find the highest height reached by the Ferris wheel.",
   "Minimum: Find the lowest height reached by the Ferris wheel.",
   "Midline: Find the value halfway between the maximum and minimum.",
@@ -158,7 +158,7 @@ function toggleAnimation(){
 }
 
 function hAt(t){
-  return mid+amp*Math.sin(2*Math.PI*t/period);
+  return mid-amp*Math.cos(2*Math.PI*t/period);
 }
 
 function rr(ctx,x,y,wid,hei,r,fill,stroke){
@@ -243,7 +243,7 @@ function drawWheel(t){
   w.arc(WX,WY,10,0,Math.PI*2);
   w.fill();
 
-  let angle=-2*Math.PI*t/period;
+  let angle=Math.PI/2-2*Math.PI*t/period;
   let rx=WX+r*Math.cos(angle);
   let ry=WY+r*Math.sin(angle);
 
@@ -440,7 +440,7 @@ function drawGraph(t){
   }
 
   if(showAmplitude){
-    let ax=xs(3);
+    let ax=xs(6);
     g.strokeStyle="#7c3aed";
     g.lineWidth=4;
     g.beginPath();
@@ -473,7 +473,7 @@ function drawGraph(t){
   if(showModel){
     g.fillStyle="#dc2626";
     g.font="bold 16px Segoe UI,Arial";
-    g.fillText("h(t) = 30 + 20sin(2πt / 12)",175,383);
+    g.fillText("h(t) = 30 - 20cos(2πt / 12)",175,383);
   }
 }
 
